@@ -67,3 +67,4 @@ while (finish == 0):
                         finish = 1
                         break
     print(gameL)
+print("Game over")
