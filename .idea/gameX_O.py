@@ -6,14 +6,21 @@ gameL = [['-', '-', '-'],
 print(gameL)
 finish = 0
 count = 0
-first_player = input("Is first start x player or o player ? /enter x or o ")
-while first_player not in('x','o'):
+x_or_o = ""
+second_player = ""
+first_player = input("Is first start x player or o player ? /enter x or o ").strip()
+
+while first_player not in ('x', 'o'):
     print("correct your asnwer enter x or o ")
-    first_player = input("enter x or o ")
+    first_player = input("enter x or o ").strip()
+if (first_player == 'x'):
+    second_player = 'o'
+else:
+    second_player = 'x'
 
 while (finish == 0):
-    x = input("enter x coordinate")
-    y = input("enter y coordinate")
+    x = input("enter x coordinate").strip()
+    y = input("enter y coordinate").strip()
     if ((re.match("^[0-2]$", x)) == None) | ((re.match("^[0-2]$", y)) == None):
         print("please reenter the values")
         continue
@@ -21,36 +28,42 @@ while (finish == 0):
         x = int(x)
         y = int(y)
         if (gameL[x][y] in ('-')):
-            count += 1
             if (count % 2 == 0):
                 if (first_player == 'o'):
-                    gameL[x][y] = 'x'
-                else:
                     gameL[x][y] = 'o'
+                else:
+                    gameL[x][y] = 'x'
             else:
                 if first_player == 'x':
-                    gameL[x][y] = 'x'
-                else:
                     gameL[x][y] = 'o'
-
-            print(count)
-        if count >= 5:
-            i = x
-            h = v = 0
-            j = y
-            x_or_o = ""
-            if (count % 2 == 0):
-                x_or_o = 'o'
-            else:
-                x_or_o = 'x'
-            while (h < 3) & (v < 3):
-                if gameL[i][h] == x_or_o:
-                    h += 1
-                if gameL[v][j] == x_or_o:
-                    v += 1
                 else:
+                    gameL[x][y] = 'x'
+            count += 1
+            print(count)
+        if count > 4:
+            print("more than 5")
+            i = x
+            j = y
+            h = v = 0
+            if (count % 2 == 0):
+                x_or_o = second_player
+            else:
+                x_or_o = first_player
+            print(x_or_o)
+            for raw in gameL:
+                if raw[y] == x_or_o:
+                    h += 1
+                if h == 3:
+                    finish = 1
                     break
-            if (h == 3) | (v == 3):
-                print("finish")
-                finish = 1
+                if v == x:
+                    if (raw[0] == raw[1] == raw[2] == x_or_o):
+                        finish = 1
+                        break
+                v += 1
+            for k in range(3):
+                for m in range(3):
+                    if( k == m ) | (k + m == 2):
+                        finish = 1
+                        break
     print(gameL)
