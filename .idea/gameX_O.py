@@ -27,6 +27,7 @@ while (finish == 0):
     else:
         x = int(x)
         y = int(y)
+
         if (gameL[x][y] in ('-')):
             if (count % 2 == 0):
                 if (first_player == 'o'):
@@ -44,7 +45,7 @@ while (finish == 0):
             print("more than 5")
             i = x
             j = y
-            h = v = 0
+            h = v = c = 0
             if (count % 2 == 0):
                 x_or_o = second_player
             else:
@@ -61,10 +62,30 @@ while (finish == 0):
                         finish = 1
                         break
                 v += 1
+
+            # need to be modifed:
+
             for k in range(3):
                 for m in range(3):
-                    if( k == m ) | (k + m == 2):
+                    if (k == m):  # | (k + m == 2):
+                        print(x_or_o)
+                        print(gameL[k][m], "  k:", k, "  m:", m)
+                        if (gameL[k][m] == x_or_o):
+                            c += 1
+                            print(c)
+                    if c == 3:
                         finish = 1
                         break
-    print(gameL)
-print("Game over")
+                    # if ( (k + m) == 2):
+                    #     print(x_or_o)
+                    #     print(gameL[k][m],"  k:",k,"  m:",m)
+                    #     if (gameL[k][m] == x_or_o):
+                    #         finish = 1
+                    #         break
+        print(gameL)
+
+for row in gameL:
+    print(row)
+
+print("Game Over")
+
